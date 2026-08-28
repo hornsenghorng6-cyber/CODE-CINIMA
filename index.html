@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineMax — Premium Cinema</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- ភ្ជាប់ទៅកាន់ style.css នៅ Folder ជាមួយគ្នា -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <a href="#home" class="logo">
+      <span class="logo-icon">▶️</span> Cine<span>Max</span>
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#home" class="nav-link active"><span>⌂</span> Home</a>
+      <a href="#movies" class="nav-link"><span>🎬</span> Movies</a>
+      <a href="#trending" class="nav-link"><span>🔥</span> Trending</a>
+      <a href="#genres" class="nav-link"><span>✦</span> Genres</a>
+      <a href="#premium" class="nav-link"><span>💎</span> Premium</a>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="search-btn" id="openSearch" aria-label="Search movies">⌕</button>
+      <button class="login-btn" onclick="openPayment()">💎 Premium</button>
+      <button class="menu-btn" id="menuBtn">☰</button>
+    </div>
+  </header>
+
+  <!-- SEARCH OVERLAY -->
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-box">
+      <button class="close-search" id="closeSearch">×</button>
+      <div class="search-icon">⌕</div>
+      <input type="text" id="searchInput" placeholder="Search movies...">
+      <div class="search-results" id="searchResults"></div>
+    </div>
+  </div>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="live-dot"></span> #1 MOVIE OF THE WEEK
+        </div>
+        <h1>AVATAR <span>The Way of Water</span></h1>
+        <div class="hero-meta">
+          <span>2022</span><span>•</span>
+          <span>PG-13</span><span>•</span>
+          <span>3h 12m</span>
+          <span class="rating">★ 8.1</span>
+        </div>
+        <p>Experience the breathtaking world of Pandora like never before.</p>
+        <div class="hero-buttons">
+          <a href="watch.html" class="primary-btn" style="text-decoration:none;">▶️ Watch Trailer</a>
+          <button class="secondary-btn" onclick="openMovie(1)">More Info</button>
+        </div>
+      </div>
+      <div class="hero-gradient"></div>
+    </section>
+
+    <!-- MOVIES CONTENT -->
+    <div class="content" id="movies">
+
+      <!-- TRENDING -->
+      <section class="movie-section" id="trending">
+        <div class="section-header">
+          <div>
+            <span class="section-label">WHAT'S HOT</span>
+            <h2>Trending Now</h2>
+            <p class="section-subtitle">Movies everyone is watching right now.</p>
+          </div>
+          <button class="view-all">View All →</button>
+        </div>
+        <div class="movie-grid" id="trendingGrid"></div>
+      </section>
+
+      <!-- PREMIUM BANNER -->
+      <section class="premium-section" id="premium">
+        <div class="premium-box">
+          <div class="premium-content">
+            <span class="section-label">CINE MAX PREMIUM</span>
+            <h2>Watch More. <span>Enjoy More.</span></h2>
+            <p>Unlock premium movies, HD quality, exclusive content and unlimited watching.</p>
+            <div class="premium-features">
+              <div>✓ Premium Movies</div>
+              <div>✓ 4K Quality</div>
+              <div>✓ No Ads</div>
+              <div>✓ Unlimited Access</div>
+            </div>
+            <button class="primary-btn" onclick="openPayment()">💳 Pay Money</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- GENRES -->
+      <section class="genres-section" id="genres">
+        <div class="section-header">
+          <div>
+            <span class="section-label">EXPLORE</span>
+            <h2>Browse Genres</h2>
+          </div>
+        </div>
+        <div class="genres">
+          <button class="genre active" onclick="filterGenre('All', this)">All</button>
+          <button class="genre" onclick="filterGenre('Action', this)">⚡ Action</button>
+          <button class="genre" onclick="filterGenre('Adventure', this)">🏔 Adventure</button>
+          <button class="genre" onclick="filterGenre('Sci-Fi', this)">🚀 Sci-Fi</button>
+        </div>
+        <div class="movie-grid" id="genreGrid"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- MOVIE DETAIL MODAL -->
+  <div class="modal" id="movieModal" aria-hidden="true">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeMovie()">×</button>
+      <div class="modal-poster-wrap">
+        <img id="modalPoster" src="" alt="Movie poster">
+      </div>
+      <div class="modal-info">
+        <span class="section-label">PREMIUM MOVIE</span>
+        <h2 id="modalTitle"></h2>
+        <div class="modal-meta">
+          <span id="modalYear"></span><span>•</span>
+          <span id="modalGenre"></span><span>•</span>
+          <span class="rating" id="modalRating"></span>
+        </div>
+        <p id="modalDescription"></p>
+
+        <div class="payment-box" id="paymentBox">
+          <div class="payment-text">
+            <strong>Premium Access Required</strong>
+            <span>Pay $2.99 to unlock this movie.</span>
+          </div>
+          <button class="pay-btn" onclick="openPayment()">💳 Pay $2.99</button>
+        </div>
+
+        <div class="modal-buttons">
+          <a href="watch.html" class="primary-btn" style="text-decoration:none;">▶️ Watch Trailer</a>
+          <button class="secondary-btn">＋ My List</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAYMENT MODAL -->
+  <div class="payment-modal" id="paymentModal">
+    <div class="payment-box">
+      <button class="payment-close" onclick="closePayment()">×</button>
+      <div class="payment-icon">💎</div>
+      <span class="section-label">CINE MAX PREMIUM</span>
+      <h2>Choose Your Plan</h2>
+
+      <div class="plans">
+        <div class="plan" onclick="selectPlan(this, 4.99, 'Weekly')">
+          <span>WEEKLY</span>
+          <strong>$4.99</strong>
+          <small>7 days</small>
+        </div>
+        <div class="plan selected" onclick="selectPlan(this, 9.99, 'Monthly')">
+          <span>MONTHLY</span>
+          <strong>$9.99</strong>
+          <small>30 days</small>
+        </div>
+        <div class="plan" onclick="selectPlan(this, 49.99, 'Yearly')">
+          <span>YEARLY</span>
+          <strong>$49.99</strong>
+          <small>365 days</small>
+        </div>
+      </div>
+
+      <div class="payment-summary">
+        <span>Selected Plan:</span>
+        <strong id="modalSelectedPlan">Monthly</strong>
+      </div>
+      <div class="payment-summary">
+        <span>Total:</span>
+        <strong id="paymentAmount">$9.99</strong>
+      </div>
+
+      <button class="pay-btn" onclick="payMoney()">💳 Pay Money</button>
+      <p class="payment-note">🔒 Demo payment system</p>
+    </div>
+  </div>
+
+  <!-- SUCCESS MODAL -->
+  <div class="success-modal" id="successModal">
+    <div class="success-box">
+      <div class="success-icon">✓</div>
+      <h2>Payment Successful!</h2>
+      <p>Your Premium access has been activated.</p>
+      <div class="payment-summary">
+        <span>Plan:</span>
+        <strong id="successPlan">Monthly</strong>
+      </div>
+      <div class="payment-summary">
+        <span>Amount Paid:</span>
+        <strong id="successAmount">$9.99</strong>
+      </div>
+      <button class="primary-btn" style="width:100%; margin-top:15px;" onclick="closeSuccess()">🎬 Start Watching</button>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 CineMax. All rights reserved.</p>
+  </footer>
+
+  <!-- ភ្ជាប់ទៅកាន់ script.js នៅ Folder ជាមួយគ្នា -->
+  <script src="script.js"></script>
+</body>
+</html>
